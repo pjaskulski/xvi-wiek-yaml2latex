@@ -12,6 +12,7 @@ var latex_begin = `
 \usepackage[T1]{fontenc}
 \usepackage{tgpagella}
 \usepackage{cmap}
+\usepackage{imakeidx}
 
 \title{XVI wiek\\ \noindent{Kalendarium}}
 \author[Piotr Jaskulski]{Piotr Jaskulski}
@@ -92,8 +93,7 @@ var latex_begin = `
 \newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
 \newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
 
-\usepackage{makeidx}
-\makeindex
+\makeindex[name=person,title={Indeks postaci}]
 
 \begin{document}
 
@@ -123,7 +123,7 @@ Autorstwa 4.0 Międzynarodowe.
 var latex_end = `
 \backmatter
 
-\printindex
+\printindex[person] 
 
 \end{document}
 `

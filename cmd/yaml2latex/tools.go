@@ -250,6 +250,13 @@ func (app *application) createLatex(filename string) {
 			factDate := fmt.Sprintf("%d %s %d", fact.Day, strings.ToLower(monthName[item[:2]]), fact.Year)
 			app.writeLatex(fmt.Sprintf(`\section[%s]{%s}`, factDate+" - "+fact.Title, fact.Title))
 			app.writeLatex(fact.ContentLatex)
+			if fact.People != "" {
+				persons := strings.Split(fact.People, ";")
+				for _, person := range persons {
+					person = strings.TrimSpace(person)
+					app.writeLatex(fmt.Sprintf(`\index[person]{%s}`, person))
+				}
+			}
 			if fact.GeoLatex != "" {
 				app.writeLatex("")
 				app.writeLatex(fact.GeoLatex)
