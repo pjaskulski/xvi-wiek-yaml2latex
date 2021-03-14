@@ -233,6 +233,9 @@ func (app *application) createLatex(filename string) {
 	app.writeLatex(fmt.Sprintf(`\chapter{%s}`, monthName[currentMonth]))
 	app.writeLatex("")
 
+	quote := quotes[currentMonth]
+	app.writeLatex(fmt.Sprintf(latex_quote, quote.Content, quote.Source))
+
 	var factKeys []string
 	for key := range app.dataCache {
 		factKeys = append(factKeys, key)
@@ -243,6 +246,8 @@ func (app *application) createLatex(filename string) {
 		if item[:2] != currentMonth {
 			app.writeLatex(fmt.Sprintf(`\chapter{%s}`, monthName[item[:2]]))
 			currentMonth = item[:2]
+			quote := quotes[currentMonth]
+			app.writeLatex(fmt.Sprintf(latex_quote, quote.Content, quote.Source))
 		}
 		facts := app.dataCache[item]
 
