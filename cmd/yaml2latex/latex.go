@@ -17,7 +17,8 @@ var latex_begin = `
 \usepackage[T1]{fontenc}
 \usepackage{tgpagella}
 \usepackage{cmap}
-\usepackage{imakeidx}
+%\usepackage{imakeidx}
+\usepackage{makeidx}
 
 \title{XVI wiek\\ \noindent{Kalendarium}}
 \author[Piotr Jaskulski]{Opracowanie: Piotr Jaskulski}
@@ -98,9 +99,11 @@ var latex_begin = `
 \newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
 \newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
 
-\makeindex[name=person,title={Indeks postaci}]
+%\makeindex[name=person,title={Indeks postaci}]
+\makeindex
 
 \begin{document}
+\renewcommand\indexname{Indeks postaci}
 
 \frontmatter
 
@@ -113,15 +116,21 @@ var latex_begin = `
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
 
-\par\smallcaps{Opublikowane przez serwis xvi-wiek.pl}
+\par\smallcaps{Opublikowane przez serwis \href{https://xvi-wiek.pl}{xvi-wiek.pl}}
 
 \par Zastrzeżenie: autor dołożył wszelkich starań, by zawarte w tej książce informacje 
 były kompletne i rzetelne. Nie bierze jednak żadnej odpowiedzialności za ich wykorzystanie, 
 nie ponosi również żadnej odpowiedzialności za ewentualne szkody wynikłe z wykorzystania 
 informacji zawartych w treściach opublikowanych w niniejszej publikacji.
 
-\par Opisy wydarzeń są dostępne na licencji Creative Commons Uznanie 
-Autorstwa 4.0 Międzynarodowe.
+\par Opisy wydarzeń udostępnione na licencji Creative Commons Uznanie 
+Autorstwa 4.0 Międzynarodowe. Źródła do wygenerowania książki w postaci plików
+w formacie YAML można pobrać ze strony: \href{https://github.com/pjaskulski/xvi-wiek}{github.com/pjaskulski/xvi-wiek}.
+
+\par Złożono w systemie \LaTeX{} z wykorzystaniem stylu \href{https://tufte-latex.github.io/tufte-latex/}{tufte-latex} 
+oraz konwertera xvi-wiek-yaml2latex. Kod źródłowy konwertera dostępny jest na stronie 
+\href{https://github.com/pjaskulski/xvi-wiek-yaml2latex}{github.com/pjaskulski/xvi-wiek-yaml2latex}.
+ 
 \par\textit{Plik wygenerowany w \monthyear}
 \end{fullwidth}
 
@@ -136,6 +145,8 @@ Dominice
 \end{doublespace}
 \vfill
 \vfill
+
+\tableofcontents
 
 \cleardoublepage
 
@@ -154,7 +165,7 @@ także krain sąsiednich jeżeli w wydarzenia na ich terenie Królestwo Polskie 
 zaangażowane lub dane wydarzenie na losy Królestwa miało wpływ.
 
 Technicznie ebook jest przetransferowaną do formy książki zawartością serwisu 
-xvi-wiek.pl. Przyczyny powstania tego ebooka i serwisu xvi-wiek.pl były tak naprawdę 
+xvi-wiek.pl. Przyczyny powstania tego ebooka i serwisu były tak naprawdę 
 dwie: XVI wiek to mój ulubiony okres historii Polski a programowanie aplikacji 
 webowych w języku Go od pewnego czasu zajmowało pierwsze miejsce na liście technologii 
 do nauczenia. Kiedy moja córka otrzymała ocenę dostateczną z klasówki z historii, 
@@ -166,7 +177,8 @@ mechanizm automatycznej konwersji ze źródeł strony do tej książki...}
 var latex_end = `
 \backmatter
 
-\printindex[person] 
+%\printindex[person] 
+\printindex
 
 \end{document}
 `

@@ -259,7 +259,8 @@ func (app *application) createLatex(filename string) {
 				persons := strings.Split(fact.People, ";")
 				for _, person := range persons {
 					person = strings.TrimSpace(person)
-					app.writeLatex(fmt.Sprintf(`\index[person]{%s}`, person))
+					//app.writeLatex(fmt.Sprintf(`\index[person]{%s}`, person))
+					app.writeLatex(fmt.Sprintf(`\index{%s}`, person))
 				}
 			}
 			if fact.GeoLatex != "" {
