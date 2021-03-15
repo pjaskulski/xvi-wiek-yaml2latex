@@ -76,6 +76,11 @@ func (app *application) readFact(filename string) {
 	}
 
 	numberOfFacts += len(result)
+
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Year < result[j].Year
+	})
+
 	app.dataCache[name] = result
 }
 
@@ -259,7 +264,6 @@ func (app *application) createLatex(filename string) {
 				persons := strings.Split(fact.People, ";")
 				for _, person := range persons {
 					person = strings.TrimSpace(person)
-					//app.writeLatex(fmt.Sprintf(`\index[person]{%s}`, person))
 					app.writeLatex(fmt.Sprintf(`\index{%s}`, person))
 				}
 			}
