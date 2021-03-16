@@ -158,8 +158,8 @@ func prepareTextStyle(content string, clear bool) string {
 	// italiki
 	var rgxi = regexp.MustCompile(`\{(.*?)\}`)
 	if !clear {
-		pre = `\emph{`
-		post = `}`
+		pre = `<emph>`
+		post = `</emph>`
 	}
 
 	textItalic := rgxi.FindAllString(content, -1)
@@ -173,6 +173,8 @@ func prepareTextStyle(content string, clear bool) string {
 	content = strings.Replace(content, `</newthought>`, `}`, -1)
 	content = strings.Replace(content, `<textbf>`, `\textbf{`, -1)
 	content = strings.Replace(content, `</textbf>`, `}`, -1)
+	content = strings.Replace(content, `<emph>`, `\emph{`, -1)
+	content = strings.Replace(content, `</emph>`, `}`, -1)
 
 	return content
 }
