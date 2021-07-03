@@ -12,7 +12,9 @@ import (
 // Source type
 type Source struct {
 	ID      string `yaml:"id"`
+	Type    string
 	Value   string `yaml:"value"`
+	Page    string `yaml:"page"`
 	URLName string `yaml:"urlName"`
 	URL     string `yaml:"url"`
 }
@@ -37,6 +39,12 @@ type Fact struct {
 	Sources        []Source `yaml:"sources"`
 }
 
+// Reference type
+type Reference struct {
+	ID    string `yaml:"id"`
+	Value string `yaml:"value"`
+}
+
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
@@ -48,7 +56,8 @@ type application struct {
 var (
 	numberOfFacts int
 	dirExecutable string
-	fileInfo      *os.FileInfo
+	//fileInfo      *os.FileInfo
+	ReferenceMap map[string]string
 )
 
 // Config struct

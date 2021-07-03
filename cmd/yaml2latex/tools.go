@@ -84,11 +84,42 @@ func (app *application) readFact(filename string) {
 	app.dataCache[name] = result
 }
 
+// readReference func
+func (app *application) readReference(path string) error {
+	var reference Reference
+
+	filename := filepath.Join(path, "references.yaml")
+
+	fileBuf, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+
+	r := bytes.NewReader(fileBuf)
+	yamlDec := yaml.NewDecoder(r)
+
+	for yamlDec.Decode(&reference) == nil {
+
+		ReferenceMap[reference.ID] = reference.Value
+	}
+
+	return nil
+}
+
 // loadData - wczytuje podczas startu serwera dane do struktur w pamięci operacyjnej
 func (app *application) loadData(path string) error {
 	// wydarzenia
 	app.infoLog.Printf("Wczytywanie bazy wydarzeń...")
 	start := time.Now()
+
+	// mapa na listę źródeł
+	ReferenceMap = make(map[string]string)
+
+	// wczytanie źródeł (książki i artykuły)
+	err := app.readReference(path)
+	if err != nil {
+		return err
+	}
 
 	dataFiles, _ := filepath.Glob(filepath.Join(path, "*-*.yaml"))
 	if len(dataFiles) > 0 {
@@ -187,7 +218,19 @@ func prepareFactLatex(content string, id string, sources []Source) string {
 	post := `}`
 
 	for _, item := range sources {
-		value := prepareTextStyle(item.Value, false)
+
+		var newValue string
+
+		if item.Type == "reference" {
+			newValue = ReferenceMap[item.Value]
+			if item.Page != "" {
+				newValue += ", " + item.Page
+			}
+		} else {
+			newValue = item.Value
+		}
+
+		value := prepareTextStyle(newValue, false)
 		if item.URL != "" {
 			var nameURL string
 			if item.URLName != "" {
