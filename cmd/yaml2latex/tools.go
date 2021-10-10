@@ -206,6 +206,7 @@ func prepareTextStyle(content string, clear bool) string {
 	content = strings.Replace(content, `</textbf>`, `}`, -1)
 	content = strings.Replace(content, `<emph>`, `\emph{`, -1)
 	content = strings.Replace(content, `</emph>`, `}`, -1)
+	content = strings.Replace(content, `&`, `\&`, -1)
 
 	return content
 }
@@ -242,6 +243,7 @@ func prepareFactLatex(content string, id string, sources []Source) string {
 			value = strings.Replace(value, `#`, `\#`, -1)
 			value = strings.Replace(value, `%`, `\%`, -1)
 			value = strings.Replace(value, `_`, `\_`, -1)
+			value = strings.Replace(value, `&`, `\&`, -1)
 		}
 		content = strings.Replace(content, "["+item.ID+"]", pre+value+post, -1)
 	}
